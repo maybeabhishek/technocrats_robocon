@@ -66,29 +66,37 @@ while True:
         elif(btn!='SYN_REPORT' and btn!='MSC_SCAN'):
             allstates[btn[4:]]=state
             #print(allstates)
-    if(state==1):
-        dir=btn[4:]
-        if(dir=='DPAD_UP'):
-            mess='0'
-        elif(dir=='DPAD_DOWN'):
-            mess='4'
-        elif(dir=='DPAD_LEFT'):
-            mess='6'
-        elif(dir=='DPAD_RIGHT'):
-            mess='2'
-        elif(dir=='TL'):
-            mess='7'
-        elif(dir=='TR'):
-            mess='1'
-        elif(dir=='SELECT'):
-            mess='5'
-        elif(dir=='START'):
-            mess='3'
-    else:
-        mess='S'
-    print(mess)
-    client.publish('/leds/esp8266', mess)
-    # ser.write(mess.encode('ascii'))
-            #print("from b because",btn)
-        #print(event.code, event.state)#event.ev_type,
+        if(state==1):
+            dir=btn[4:]
+            if(dir=='DPAD_UP'):
+                mess='0'
+                client.publish('/leds/esp8266', mess)
+            elif(dir=='DPAD_DOWN'):
+                mess='4'
+                client.publish('/leds/esp8266', mess)
+            elif(dir=='DPAD_LEFT'):
+                mess='6'
+                client.publish('/leds/esp8266', mess)
+            elif(dir=='DPAD_RIGHT'):
+                mess='2'
+                client.publish('/leds/esp8266', mess)
+            elif(dir=='TL'):
+                mess='7'
+                client.publish('/leds/esp8266', mess)
+            elif(dir=='TR'):
+                mess='1'
+                client.publish('/leds/esp8266', mess)
+            elif(dir=='SELECT'):
+                mess='5'
+                client.publish('/leds/esp8266', mess)
+            elif(dir=='START'):
+                mess='3'
+                client.publish('/leds/esp8266', mess)
+        else:
+            mess='S'
+            print(mess)
+            client.publish('/leds/esp8266', mess)
+        # ser.write(mess.encode('ascii'))
+                #print("from b because",btn)
+            #print(event.code, event.state)#event.ev_type,
 
