@@ -69,21 +69,21 @@ while True:
     if(state==1):
         dir=btn[4:]
         if(dir=='DPAD_UP'):
-        mess='0'
+            mess='0'
         elif(dir=='DPAD_DOWN'):
-        mess='4'
+            mess='4'
         elif(dir=='DPAD_LEFT'):
-        mess='6'
+            mess='6'
         elif(dir=='DPAD_RIGHT'):
-        mess='2'
+            mess='2'
         elif(dir=='TL'):
-        mess='7'
+            mess='7'
         elif(dir=='TR'):
-        mess='1'
+            mess='1'
         elif(dir=='SELECT'):
-        mess='5'
+            mess='5'
         elif(dir=='START'):
-        mess='3'
+            mess='3'
     else:
         mess='S'
     print(mess)
