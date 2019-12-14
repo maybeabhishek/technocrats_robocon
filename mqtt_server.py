@@ -1,7 +1,7 @@
+from __future__ import print_function
 import time 
 import RPi.GPIO as GPIO 
 import paho.mqtt.client as mqtt 
-from __future__ import print_function
 from inputs import get_gamepad
 from serial import Serial
 
@@ -16,20 +16,22 @@ GPIO.output(LED_PIN, GPIO.LOW)
 GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) 
 
 
-
+# Setup callback functions that are called when MQTT events happen like 
+# connecting to the server or receiving data from a subscribed feed. 
 def on_connect(client, userdata, flags, rc): 
    print("Connected with result code " + str(rc)) 
-   
+   # Subscribing in on_connect() means that if we lose the connection and 
+   # reconnect then subscriptions will be renewed. 
    client.subscribe("/leds/pi") 
- 
+# The callback for when a PUBLISH message is received from the server. 
 
 
 
 def on_message(client, userdata, msg): 
    print(msg.topic+" "+str( msg.payload)) 
-
+   # Check if this is a message for the Pi LED. 
    if msg.topic == '/leds/pi': 
-       
+       # Look at the message data and perform the appropriate action. 
        if msg.payload == b'ON': 
            GPIO.output(LED_PIN, GPIO.HIGH) 
        elif msg.payload == b'OFF': 
@@ -38,13 +40,15 @@ def on_message(client, userdata, msg):
            GPIO.output(LED_PIN, not GPIO.input(LED_PIN)) 
 
 
+# Create MQTT client and connect to localhost, i.e. the Raspberry Pi running 
+# this script and the MQTT server. 
 client = mqtt.Client() 
 client.on_connect = on_connect 
 client.on_message = on_message 
 client.connect('localhost', 1883, 60) 
-
+# Connect to the MQTT server and process messages in a background thread. 
 client.loop_start() 
-
+# Main loop to listen for button presses. 
 print('Script is running, press Ctrl-C to quit...') 
 mess=''
 #ser=Serial('/dev/ttyUSB0',9600)
@@ -65,28 +69,28 @@ while True:
         if(state==1):
             dir=btn[4:]
             if(dir=='DPAD_UP'):
-                mess='0000000000000000000000000000'
+                mess='0'
                 client.publish('/leds/esp8266', mess)
             elif(dir=='DPAD_DOWN'):
-                mess='4444444444444444444444444444'
+                mess='4'
                 client.publish('/leds/esp8266', mess)
             elif(dir=='DPAD_LEFT'):
-                mess='6666666666666666666666666666'
+                mess='6'
                 client.publish('/leds/esp8266', mess)
             elif(dir=='DPAD_RIGHT'):
-                mess='2222222222222222222222222222'
+                mess='2'
                 client.publish('/leds/esp8266', mess)
             elif(dir=='TL'):
-                mess='77777777777777777777777777777'
+                mess='7'
                 client.publish('/leds/esp8266', mess)
             elif(dir=='TR'):
-                mess='111111111111111111111111111111'
+                mess='1'
                 client.publish('/leds/esp8266', mess)
             elif(dir=='SELECT'):
-                mess='555555555555555555555555555555'
+                mess='5'
                 client.publish('/leds/esp8266', mess)
             elif(dir=='START'):
-                mess='3333333333333333333333333333333'
+                mess='3'
                 client.publish('/leds/esp8266', mess)
         else:
             mess='S'
