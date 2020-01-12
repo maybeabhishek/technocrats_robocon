@@ -69,7 +69,7 @@ while True:
         #         client.publish('/leds/esp8266', mess)
 
             # forward
-        if(dir=='Y' and allstates['Y']<120):
+        if(dir=='Y' and allstates['Y']<100):
             if(allstates['Y']<=120 and allstates['Y']>90):
                 mess='<'
                 
@@ -92,7 +92,7 @@ while True:
             client.publish('/leds/esp8266', mess)
         
         # left
-        elif(dir=='RX' and allstates['RX']<120):
+        elif(dir=='RX' and allstates['RX']<100):
             if(allstates['RX']<=120 and allstates['RX']>90):
                 mess='<'
                 client.publish('/leds/esp8266', mess)
@@ -113,7 +113,7 @@ while True:
             print(mess)
             client.publish('/leds/esp8266', mess)
         # back
-        elif(dir=='Y' and allstates['Y']>135):
+        elif(dir=='Y' and allstates['Y']>150):
             if(allstates['Y']>=135 and allstates['Y']<=160):
                 mess='<'
                 client.publish('/leds/esp8266', mess)
@@ -135,7 +135,7 @@ while True:
             client.publish('/leds/esp8266', mess)
 
         # right
-        elif(dir=='RX' and allstates['RX']>135):
+        elif(dir=='RX' and allstates['RX']>150):
             if(allstates['RX']>=135 and allstates['RX']<=160):
                 mess='<'
                 client.publish('/leds/esp8266', mess)
@@ -156,7 +156,7 @@ while True:
             print(mess)
             client.publish('/leds/esp8266', mess)
                
-        elif(allstates['RX']>120 and allstates['RX']<130 and allstates['Y']>120 and allstates['Y']<130):
+        elif(allstates['RX']>100 and allstates['RX']<150 and allstates['Y']>100 and allstates['Y']<150):
             mess='S'
             print(mess)
             client.publish('/leds/esp8266', mess)
