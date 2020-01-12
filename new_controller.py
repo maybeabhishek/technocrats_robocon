@@ -31,7 +31,7 @@ while True:
         if(btn[4:] == 'X' or btn[4:] == 'Y' or btn[4:] == 'RX' or btn[4:] == 'RY'):
             if(abs(state-allstates[btn[4:]]) > 10):
                 allstates[btn[4:]] = state
-                print(allstates)
+                # print(allstates)   # Make it print later
         elif(btn != 'SYN_REPORT' and btn != 'MSC_SCAN'):
             allstates[btn[4:]] = state
             # print(allstates)
@@ -71,6 +71,7 @@ while True:
         if(dir=='Y' and allstates['Y']<120):
             if(allstates['Y']<=120 or allstates['Y']>90):
                 mess='<'
+                
                 client.publish('/leds/esp8266', mess)
                 
             elif(allstates['Y']>60 or allstates['Y']<=90 ):
@@ -84,7 +85,9 @@ while True:
             elif(allstates['Y']<=30):
                 mess=')'
                 client.publish('/leds/esp8266', mess)
+            print(mess)
             mess='0'
+            print(mess)
             client.publish('/leds/esp8266', mess)
         
         # left
@@ -104,7 +107,9 @@ while True:
             elif(allstates['RX']<=30):
                 mess=')'
                 client.publish('/leds/esp8266', mess)
+            print(mess)
             mess='6'
+            print(mess)
             client.publish('/leds/esp8266', mess)
         # back
         elif(dir=='Y' and allstates['Y']>135):
@@ -123,7 +128,9 @@ while True:
             else:
                 mess=')'
                 client.publish('/leds/esp8266', mess)
+            print(mess)
             mess='4'
+            print(mess)
             client.publish('/leds/esp8266', mess)
 
         # right
@@ -143,7 +150,9 @@ while True:
             else:
                 mess=')'
                 client.publish('/leds/esp8266', mess)
+            print(mess)
             mess='2'
+            print(mess)
             client.publish('/leds/esp8266', mess)
                
         elif(allstates['RX']>120 and allstates['RX']<130 and allstates['Y']>120 and allstates['Y']<130):
