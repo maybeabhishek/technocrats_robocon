@@ -65,87 +65,87 @@ while True:
 
 
             # forward
-        if(dir=='X' and allstates['X']>30):
-                if(allstates['X']<64):
+        if(dir=='Y' and allstates['Y']<120):
+                if(allstates['Y']<=120 or allstates['Y']>90):
                     mess='<'
                     client.publish('/leds/esp8266', mess)
                     
-                if(allstates['X']>=64 or allstates['X']<128 ):
+                elif(allstates['Y']>60 or allstates['Y']<=90 ):
                     mess='>'
                     client.publish('/leds/esp8266', mess)
                     
-                if(allstates['X']>=128 or allstates['X']<192 ):
+                elif(allstates['Y']>30 or allstates['Y']<=60 ):
                     mess='('
                     client.publish('/leds/esp8266', mess)
                     
-                if(allstates['X']>=192):
+                elif(allstates['Y']<=30):
                     mess=')'
                     client.publish('/leds/esp8266', mess)
                 mess='0'
                 client.publish('/leds/esp8266', mess)
         
-        # // back
-        elif(dir=='X' and allstates['X']<-4000):
-                if(allstates['X']>-64):
+        # left
+        if(dir=='RX' and allstates['RX']<120):
+                if(allstates['RX']<=120 or allstates['RX']>90):
                     mess='<'
                     client.publish('/leds/esp8266', mess)
                     
-                if(allstates['X']<=-64 or allstates['X']>-128 ):
+                elif(allstates['RX']>60 or allstates['RX']<=90 ):
                     mess='>'
                     client.publish('/leds/esp8266', mess)
                     
-                if(allstates['X']<=-128 or allstates['X']>-192 ):
+                elif(allstates['RX']>30 or allstates['RX']<=60 ):
                     mess='('
                     client.publish('/leds/esp8266', mess)
                     
-                if(allstates['X']<=-192):
+                elif(allstates['RX']<=30):
                     mess=')'
                     client.publish('/leds/esp8266', mess)
-
-                mess='4'
-                client.publish('/leds/esp8266', mess)
-
-        # // Left
-        elif(dir=='RY' and allstates['RY']>4000):
-                if(allstates['RY']<64):
-                    mess='<'
-                    client.publish('/leds/esp8266', mess)
-                    
-                if(allstates['RY']>=64 or allstates['RY']<128 ):
-                    mess='>'
-                    client.publish('/leds/esp8266', mess)
-                    
-                if(allstates['RY']>=128 or allstates['RY']<192 ):
-                    mess='('
-                    client.publish('/leds/esp8266', mess)
-                    
-                if(allstates['RY']>=192):
-                    mess=')'
-                    client.publish('/leds/esp8266', mess)
-                
                 mess='6'
                 client.publish('/leds/esp8266', mess)
-        
-        # // Right
-        elif(dir=='Y' and allstates['Y']<-4000):
-                if(allstates['Y']>-64):
+        # back
+        if(dir=='Y' and allstates['Y']>135):
+                if(allstates['Y']>=135 or allstates['Y']<=160):
                     mess='<'
                     client.publish('/leds/esp8266', mess)
                     
-                if(allstates['Y']<=-64 or allstates['Y']>-128 ):
+                elif(allstates['Y']>160 or allstates['Y']<=190 ):
                     mess='>'
                     client.publish('/leds/esp8266', mess)
                     
-                if(allstates['Y']<=-128 or allstates['Y']>-192 ):
+                elif(allstates['Y']>190 or allstates['Y']<=220 ):
                     mess='('
                     client.publish('/leds/esp8266', mess)
                     
-                if(allstates['Y']<=-192):
+                else:
                     mess=')'
                     client.publish('/leds/esp8266', mess)
-                
                 mess='4'
                 client.publish('/leds/esp8266', mess)
+
+
+        # right
+        if(dir=='RX' and allstates['RX']>135):
+                if(allstates['RX']>=135 or allstates['RX']<=160):
+                    mess='<'
+                    client.publish('/leds/esp8266', mess)
+                    
+                elif(allstates['RX']>160 or allstates['RX']<=190 ):
+                    mess='>'
+                    client.publish('/leds/esp8266', mess)
+                    
+                elif(allstates['RX']>190 or allstates['RX']<=220 ):
+                    mess='('
+                    client.publish('/leds/esp8266', mess)
+                    
+                else:
+                    mess=')'
+                    client.publish('/leds/esp8266', mess)
+                mess='2'
+                client.publish('/leds/esp8266', mess)
+
+       
+        
                 
         elif(btn[4:]!='REPORT' and btn[4:]=='SCAN'):
                 mess='S'
