@@ -145,7 +145,7 @@ while True:
                     mess='4'
                     client.publish('/leds/esp8266', mess)
                 
-        elif(btn[4:]=='REPORT' and btn[4:]!='SCAN'):
+        elif(btn[4:]!='REPORT' and btn[4:]=='SCAN'):
                 mess='S'
                 print(mess)
                 client.publish('/leds/esp8266', mess)
