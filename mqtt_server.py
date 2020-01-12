@@ -5,15 +5,15 @@ import paho.mqtt.client as mqtt
 from inputs import get_gamepad
 from serial import Serial
 
-# Configuration: 
-LED_PIN        = 24 
-BUTTON_PIN     = 23 
-# Initialize GPIO for LED and button. 
-GPIO.setmode(GPIO.BCM) 
-GPIO.setwarnings(False) 
-GPIO.setup(LED_PIN, GPIO.OUT) 
-GPIO.output(LED_PIN, GPIO.LOW) 
-GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) 
+# # Configuration: 
+# LED_PIN        = 24 
+# BUTTON_PIN     = 23 
+# # Initialize GPIO for LED and button. 
+# GPIO.setmode(GPIO.BCM) 
+# GPIO.setwarnings(False) 
+# GPIO.setup(LED_PIN, GPIO.OUT) 
+# GPIO.output(LED_PIN, GPIO.LOW) 
+# GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) 
 
 
 # Setup callback functions that are called when MQTT events happen like 
@@ -27,24 +27,24 @@ def on_connect(client, userdata, flags, rc):
 
 
 
-def on_message(client, userdata, msg): 
-   print(msg.topic+" "+str( msg.payload)) 
-   # Check if this is a message for the Pi LED. 
-   if msg.topic == '/leds/pi': 
-       # Look at the message data and perform the appropriate action. 
-       if msg.payload == b'ON': 
-           GPIO.output(LED_PIN, GPIO.HIGH) 
-       elif msg.payload == b'OFF': 
-           GPIO.output(LED_PIN, GPIO.LOW) 
-       elif msg.payload == b'TOGGLE': 
-           GPIO.output(LED_PIN, not GPIO.input(LED_PIN)) 
+# def on_message(client, userdata, msg): 
+#    print(msg.topic+" "+str( msg.payload)) 
+#    # Check if this is a message for the Pi LED. 
+#    if msg.topic == '/leds/pi': 
+#        # Look at the message data and perform the appropriate action. 
+#        if msg.payload == b'ON': 
+#            GPIO.output(LED_PIN, GPIO.HIGH) 
+#        elif msg.payload == b'OFF': 
+#            GPIO.output(LED_PIN, GPIO.LOW) 
+#        elif msg.payload == b'TOGGLE': 
+#            GPIO.output(LED_PIN, not GPIO.input(LED_PIN)) 
 
 
 # Create MQTT client and connect to localhost, i.e. the Raspberry Pi running 
 # this script and the MQTT server. 
 client = mqtt.Client() 
 client.on_connect = on_connect 
-client.on_message = on_message 
+# client.on_message = on_message 
 client.connect('localhost', 1883, 60) 
 # Connect to the MQTT server and process messages in a background thread. 
 client.loop_start() 
@@ -92,9 +92,9 @@ while True:
             elif(dir=='START'):
                 mess='3'
                 client.publish('/leds/esp8266', mess)
-        else:
+        elif(btn[4:]=='REPORT' and btn[4:]!='SCAN'):  #If doesnt work then remove the conditions here and follow the steps given below
             mess='S'
-            print(mess)
+            # print(btn[4:])  Uncomment this as said earlier and start pressing buttons youll get a value of 'scan' or 'report' whichever comes just replace it in the above condition
             client.publish('/leds/esp8266', mess)
         # ser.write(mess.encode('ascii'))
                 #print("from b because",btn)
