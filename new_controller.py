@@ -28,6 +28,7 @@ while True:
     for event in events:
         btn = event.code
         state = event.state
+        dir = btn[4:]
         if(btn[4:] == 'X' or btn[4:] == 'Y' or btn[4:] == 'RX' or btn[4:] == 'RY'):
             if(abs(state-allstates[btn[4:]]) > 10):
                 allstates[btn[4:]] = state
